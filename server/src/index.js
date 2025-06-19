@@ -6,6 +6,7 @@ const course = require("./modules/courses/index");
 const { mergeTypeDefs, mergeResolvers } = require("@graphql-tools/merge");
 const connectMongoDB = require("./config/connection/db");
 const student = require("./modules/students/index")
+const cors = require("cors")
 
 const app = express();
 const port = 8000;
@@ -24,6 +25,7 @@ const startServer = async () => {
   await server.start();
 
   app.use(express.json());
+  app.use(cors())
   app.use("/graphql", express.json(), expressMiddleware(server));
 
   app.listen(port, () => console.log(`Server is running on port ${port}`));
