@@ -1,24 +1,15 @@
 "use client";
-import { gql, useQuery } from "@apollo/client";
-
-const GET_STUDENTS = gql`
-  query {
-    getAllStudents {
-      name
-      rollNo
-      dept
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { GET_STUDENTS } from "./student/queries";
 
 export default function Home() {
-  const { data, loading, error } = useQuery(GET_STUDENTS);
-  // const {getAllStudents} = data;
+  const { data } = useQuery(GET_STUDENTS);
 
   return (
     <div className="mt-20 flex justify-center items-center flex-col">
+     
       <h1 className="text-cyan-600 text-2xl font-bold text-center ">
-        STUDENT LISTS
+        STUDENTS LIST
       </h1>
 
       {/* STUDENT TABLE */}

@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ApolloWrapper from "@/lib/apolloProvider";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,17 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="flex justify-around items-center gap-5 mb-10 bg-gray-300 py-4 shadow-lg">
+          <span className="font-black text-2xl italic  ">GRAPHQL</span>
+          <div className="space-x-10">
+            <Link href="/" className=" font-bold hover:underline">
+              Students
+            </Link>
+            <Link href="/todos" className=" font-bold hover:underline">
+              Todos
+            </Link>
+          </div>
+        </div>
         <ApolloWrapper>{children}</ApolloWrapper>
       </body>
     </html>
