@@ -19,3 +19,19 @@ export const ADD_NEW_STUDENT = gql`
     }
   }
 `;
+
+export const UPDATE_STUDENT = gql`
+  mutation UpdateStudent($name: String, $rollNo: String!, $dept: String) {
+    updateStudent(name: $name, rollNo: $rollNo, dept: $dept) {
+      name
+      rollNo
+      dept
+    }
+  }
+`;
+
+export const DELETE_STUDENT = gql`
+  mutation DeleteStudent($rollNo: String!) {
+    deleteStudent(rollNo: $rollNo)
+  }
+`;

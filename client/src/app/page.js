@@ -1,10 +1,22 @@
 "use client";
-import { useQuery } from "@apollo/client";
-import { GET_STUDENTS } from "./student/queries";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  DELETE_STUDENT,
+  GET_STUDENTS,
+  UPDATE_STUDENT,
+} from "./student/queries";
 import Link from "next/link";
 
 export default function Home() {
   const { data } = useQuery(GET_STUDENTS);
+
+  const [updateStudent] = useMutation(UPDATE_STUDENT, {
+    refetchQueries: [{ query: GET_STUDENTS }],
+  });
+
+  const [deleteStudent] = useMutation(DELETE_STUDENT, {
+    refetchQueries: [{ query: GET_STUDENTS }],
+  });
 
   const handleDownload = () => {
     const headers = ["#", "Name", "RollNo", "Department"];
@@ -31,8 +43,18 @@ export default function Home() {
     document.body.removeChild(link);
   };
 
+  const handleDelete = async (rollNo) => {
+    try {
+      await deleteStudent({ variables: { rollNo: rollNo } });
+      alert("Student deleted successfully!");
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
+
   return (
-    <div className="mt-20 flex justify-center items-center flex-col max-w-[95%] md:max-w-4xl mx-auto">
+    <div className="mt-20 flex justify-center items-center flex-col max-w-[95%] md:max-w-5xl mx-auto">
       <div className="flex justify-between items-end  w-full">
         <span className="text-cyan-600 text-sm  md:text-3xl font-extrabold text-center ">
           STUDENTS LIST
@@ -55,14 +77,15 @@ export default function Home() {
       </div>
 
       {/* STUDENT TABLE */}
-      <div className="overflow-x-auto max-w-4xl w-full mt-6 shadow-md rounded-md">
-        <table className=" border border-gray-200 w-full rounded-md text-sm">
+      <div className="overflow-x-auto max-w-5xl w-full mt-6 shadow-md rounded-md">
+        <table className=" border border-gray-200 w-full rounded-md text-xs">
           <thead className="bg-gray-300  text-left">
             <tr>
               <th className="px-4 py-2 border-b text-sm ">#</th>
               <th className="px-4 py-2 border-b text-sm">Name</th>
               <th className="px-4 py-2 border-b text-sm">Roll No</th>
               <th className="px-4 py-2 border-b text-sm">Department</th>
+              <th className="px-4 py-2 border-b text-sm">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -72,6 +95,19 @@ export default function Home() {
                 <td className="px-4 py-2 border-b">{student.name}</td>
                 <td className="px-4 py-2 border-b">{student.rollNo}</td>
                 <td className="px-4 py-2 border-b">{student.dept}</td>
+                <td className="px-4 py-2 border-b">
+                  <div>
+                    <span className="bg-yellow-500 mr-3 py-0.5 px-2 rounded cursor-pointer">
+                      Edit
+                    </span>
+                    <span
+                      onClick={() => handleDelete(student.rollNo)}
+                      className="bg-red-600 text-white py-0.5 px-2 rounded cursor-pointer"
+                    >
+                      Delete
+                    </span>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
