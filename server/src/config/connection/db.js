@@ -11,3 +11,5 @@ const connectMongoDB = async () => {
 
 module.exports = connectMongoDB;
 
+// Mongodb start command
+// sudo systemctl start mongod
