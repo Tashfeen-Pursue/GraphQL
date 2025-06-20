@@ -6,7 +6,7 @@ export default function Todos() {
   const { data } = useQuery(GET_ALL_TODOS);
 
   return (
-    <div className="flex justify-center items-center flex-col mt-20">
+    <div className="flex justify-center items-center flex-col mt-20 mx-auto">
       <h1 className="text-cyan-600 text-2xl font-bold text-center ">
         TODOS LIST
       </h1>

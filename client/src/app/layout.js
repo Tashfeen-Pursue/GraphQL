@@ -24,8 +24,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* NAVBAR */}
         <div className="flex justify-around items-center gap-5 mb-10 bg-gray-300 py-4 shadow-lg">
-          <span className="font-black text-2xl italic  ">GRAPHQL</span>
+          <span className="font-black text-md md:text-2xl italic">GRAPHQL</span>
           <div className="space-x-10">
             <Link href="/" className=" font-bold hover:underline">
               Students
