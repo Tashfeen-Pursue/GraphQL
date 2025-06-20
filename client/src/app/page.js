@@ -6,13 +6,11 @@ import {
   UPDATE_STUDENT,
 } from "./student/queries";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const { data } = useQuery(GET_STUDENTS);
-
-  const [updateStudent] = useMutation(UPDATE_STUDENT, {
-    refetchQueries: [{ query: GET_STUDENTS }],
-  });
 
   const [deleteStudent] = useMutation(DELETE_STUDENT, {
     refetchQueries: [{ query: GET_STUDENTS }],
@@ -37,7 +35,7 @@ export default function Home() {
 
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "todos.csv");
+    link.setAttribute("download", "students.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -97,9 +95,6 @@ export default function Home() {
                 <td className="px-4 py-2 border-b">{student.dept}</td>
                 <td className="px-4 py-2 border-b">
                   <div>
-                    <span className="bg-yellow-500 mr-3 py-0.5 px-2 rounded cursor-pointer">
-                      Edit
-                    </span>
                     <span
                       onClick={() => handleDelete(student.rollNo)}
                       className="bg-red-600 text-white py-0.5 px-2 rounded cursor-pointer"
