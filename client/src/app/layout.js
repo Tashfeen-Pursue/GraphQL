@@ -29,6 +29,9 @@ export default function RootLayout({ children }) {
           <span className="font-black text-md md:text-2xl italic">GRAPHQL</span>
           <div className="space-x-10">
             <Link href="/" className=" font-bold hover:underline">
+              Material UI
+            </Link>
+            <Link href="/student" className=" font-bold hover:underline">
               Students
             </Link>
             <Link href="/todos" className=" font-bold hover:underline">
